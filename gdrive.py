@@ -51,7 +51,7 @@ def search(filename="", by="all", query=None):
 
         if " " in filename:
             for x in filename.split(" ")[1:]: query += f"and name contains '{x}'"
-        
+    query += " and trashed=false"    
     results= DRIVE.files().list(q=query, pageSize=pagesize, fields="files(id, name, mimeType, parents)").execute()["files"]
     final = []
 
@@ -96,7 +96,7 @@ def downloadById(fileID, outputName):
 
     with open(outputName, "wb") as f:f.write(chunkable_bytes_python_object.getbuffer())
 
-def download(path, savepath=None):
+def download(path, savepath=os.path.abspath('downloads')):
     """
     ONLY ABSOLUTE PATHS ALLOWED reeeee but ez like normal from root data/stuff/etc if etc
     is a file, itll download file if folder itll download folder ezpz
@@ -123,8 +123,9 @@ def download(path, savepath=None):
                 download(ogpath+"/"+f["name"], path[-1] if not savepath else savepath+"/"+path[-1]) 
 
             else:
+
                 print("Downloading lowest level file:", savepath+"/"+f["name"])
-                downloadById(f["id"], savepath+"/"+f["name"])
+                downloadById(f["id"], savepath+"/"+f"/{path[-1]}/"+f["name"])
     else:
         downloadById(match["id"], match["name"]) #if its a file
 
