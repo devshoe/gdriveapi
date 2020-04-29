@@ -1,4 +1,4 @@
-#!/Users/devshoeMAC/anaconda3/bin/python3
+#!/usr/loca/bin/python3
 from __future__ import print_function
 
 import argparse
@@ -11,8 +11,9 @@ from googleapiclient import discovery, http
 from httplib2 import Http
 from oauth2client import client, file, tools
 
-API_CREDENTIALS_FILENAME = "api.json"
-USER_CREDENTIALS_FILENAME = "user.json"
+API_CREDENTIALS_FILENAME = os.path.abspath("")+"/api.json"
+USER_CREDENTIALS_FILENAME = os.path.abspath("")+"/user.json"
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-s", "--search", required=False)
