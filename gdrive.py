@@ -1,4 +1,4 @@
-#!/usr/loca/bin/python3
+# !/usr/local/bin/python3
 from __future__ import print_function
 
 import argparse
@@ -11,8 +11,9 @@ from googleapiclient import discovery, http
 from httplib2 import Http
 from oauth2client import client, file, tools
 
-API_CREDENTIALS_FILENAME = os.path.abspath("")+"/api.json"
-USER_CREDENTIALS_FILENAME = os.path.abspath("")+"/user.json"
+BASE_PATH = os.path.dirname(os.path.abspath(__file__))
+API_CREDENTIALS_FILENAME = BASE_PATH+"/api.json"
+USER_CREDENTIALS_FILENAME = BASE_PATH+"/user.json"
 
 
 parser = argparse.ArgumentParser()
@@ -26,7 +27,7 @@ parser.add_argument("-f", "--folder", action="store_true", required=False)
 
 def get_credentials():
     """Login flow. Automatically runs login flow if no user.json file."""
-    if "api.json" not in os.listdir():
+    if "api.json" not in os.listdir(BASE_PATH):
         print(f"Please get api credentials as json file from https://console.cloud.google.com/apis/credentials/oauthclient and store as {API_CREDENTIALS_FILENAME}")
         exit(0)
 
